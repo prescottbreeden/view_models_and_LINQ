@@ -1,0 +1,9 @@
+@model BookLibrary
+
+<p>Here are all available books:</p>
+@{
+  foreach(Book book in @Model.Books)
+  {
+    <p>@book.BookId -- @book.Title -- @book.Author -- @book.ReleaseYear | <a href="/add/@book.BookId">Add Book</a></p>
+  }
+}
