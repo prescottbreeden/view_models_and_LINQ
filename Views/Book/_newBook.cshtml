@@ -1,0 +1,8 @@
+@model Book
+ 
+<form asp-action="NewBook" asp-controller="Book" method="post">
+  <input asp-for="Title">
+  <input asp-for="Author">
+  <input asp-for="ReleaseYear">
+  <button>Add Book</button>
+</form>

@@ -1,0 +1,9 @@
+@model List<Book>
+
+<p>Here are Bob's favorite books:</p>
+@{
+  foreach(Book book in @Model)
+  {
+    <p>@book.BookId -- @book.Title -- @book.Author -- @book.ReleaseYear | <a href="/return/@book.BookId">Return</a></p>
+  }
+}

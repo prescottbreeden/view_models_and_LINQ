@@ -8,7 +8,7 @@ using view_models.Models;
 
 namespace view_models.Controllers
 {
-  public class HomeController : Controller
+  public class BookController : Controller
   {
     private static BookLibrary library { get; set; } = new BookLibrary();
     private static User bobRoss = new User("Bob", "Ross");
@@ -21,18 +21,21 @@ namespace view_models.Controllers
       return View(dashboard);
     }
 
-    [HttpGet("add/{bookId}")]
+    [HttpGet("checkout/{bookId}")]
     public IActionResult Add(int bookId)
     {
-      Book newFavorite = library.Books.FirstOrDefault(b => b.BookId == bookId);
-      bobRoss.FavoriteBooks.Add(newFavorite);
+      Book checkout = library.Books.FirstOrDefault(b => b.BookId == bookId);
+      bobRoss.FavoriteBooks.Add(checkout);
+      library.Books.Remove(checkout);
       return RedirectToAction("Index");
     }
 
-    [HttpGet("remove/{bookId}")]
+    [HttpGet("return/{bookId}")]
     public IActionResult Remove(int bookId)
     {
-      bobRoss.FavoriteBooks.Remove(library.Books.FirstOrDefault(b => b.BookId == bookId));
+      Book returningBook = bobRoss.FavoriteBooks.FirstOrDefault(b => b.BookId == bookId);
+      bobRoss.FavoriteBooks.Remove(returningBook);
+      library.Books.Add(returningBook);
       return RedirectToAction("Index");
     }
 
